@@ -25,8 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PokemonServiceTests {
@@ -37,6 +36,7 @@ public class PokemonServiceTests {
     
     @Test
     public void PokemonService_CreatePokemon_ReturnsPokemonDto() {
+        //Stub 객체
         Pokemon pokemon = Pokemon.builder()
                 .name("pikachu")
                 .type(PokemonType.ELECTRIC)
@@ -83,6 +83,7 @@ public class PokemonServiceTests {
         Assertions.assertThat(pageResponse.getPageSize()).isEqualTo(10);
         System.out.println(pageResponse.getContent().size());
         System.out.println(pageResponse.getPageSize());
+        System.out.println(pageResponse.getTotalPages());
     }
     @Test
     public void PokemonService_FindById_ReturnPokemonDto() {
@@ -122,7 +123,7 @@ public class PokemonServiceTests {
 
         when(pokemonRepository.findById(pokemonId))
                 .thenReturn(Optional.ofNullable(pokemon));
-        when(pokemonRepository.save(pokemon))
+        lenient().when(pokemonRepository.save(pokemon))
                 .thenReturn(pokemon);
 
         PokemonDto updateReturn = 
