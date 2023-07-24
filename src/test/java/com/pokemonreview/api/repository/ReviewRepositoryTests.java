@@ -77,7 +77,10 @@ public class    ReviewRepositoryTests {
 
     @Test
     public void ReviewRepository_UpdateReview_ReturnReview() {
-        Review review = Review.builder().title("title").content("content").stars(5).build();
+        Review review = Review.builder()
+                .title("title")
+                .content("content")
+                .stars(5).build();
 
         reviewRepository.save(review);
 
@@ -87,6 +90,7 @@ public class    ReviewRepositoryTests {
 
         assertThat(reviewSave.getTitle()).isEqualTo("new title");
         assertThat(reviewSave.getContent()).isEqualTo("new content");
+        assertThat(reviewSave.getStars()).isEqualTo(5);
     }
 
     @Test
@@ -100,7 +104,8 @@ public class    ReviewRepositoryTests {
         reviewRepository.save(review);
 
         reviewRepository.deleteById(review.getId());
-        Optional<Review> reviewReturn = reviewRepository.findById(review.getId());
+        Optional<Review> reviewReturn = reviewRepository
+                .findById(review.getId());
 
         assertThat(reviewReturn).isEmpty();
     }
