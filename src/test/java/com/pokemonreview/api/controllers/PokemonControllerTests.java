@@ -79,7 +79,7 @@ public class PokemonControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(pokemonDto)));
 
-        response.andExpect(MockMvcResultMatchers.status().isCreated())
+        response.andExpect(MockMvcResultMatchers.status().isCreated()) //201
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name",
                         CoreMatchers.is(pokemonDto.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.type",
@@ -99,7 +99,7 @@ public class PokemonControllerTests {
         when(pokemonService.getAllPokemon(1,10))
                 .thenReturn(responseDto);
 
-        ResultActions response = mockMvc.perform(get("/api/pokemon")
+        ResultActions response = mockMvc.perform(get("/api/pokemon") //?pageNo=0&pageSize=10
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("pageNo","1")
                 .param("pageSize", "10"));
