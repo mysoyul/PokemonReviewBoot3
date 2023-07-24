@@ -117,9 +117,9 @@ public class PokemonControllerTests {
         when(pokemonService.getPokemonById(pokemonId))
                 .thenReturn(pokemonDto);
 
-        ResultActions response = mockMvc.perform(get("/api/pokemon/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pokemonDto)));
+        ResultActions response = mockMvc.perform(get("/api/pokemon/1"));
+                //.contentType(MediaType.APPLICATION_JSON)
+                //.content(objectMapper.writeValueAsString(pokemonDto)));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name",
