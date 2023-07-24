@@ -52,4 +52,38 @@ class PokemonRepositoryTests {
         assertThat(pokemonList).isNotNull();
         assertThat(pokemonList.size()).isEqualTo(2);
     }
+
+    @Test
+    public void PokemonRepository_FindById_ReturnPokemon() {
+        Pokemon pokemon = Pokemon.builder()
+                .name("pikachu")
+                .type(PokemonType.ELECTRIC).build();
+
+        pokemonRepository.save(pokemon);
+
+        Pokemon savedPokemon = pokemonRepository
+                .findById(pokemon.getId()) //Optional<Pokemon>
+                .get();
+
+        assertThat(savedPokemon).isNotNull();
+        assertThat(savedPokemon.getName()).isEqualTo("pikachu");
+    }
+
+    @Test
+    public void PokemonRepository_FindByType_ReturnPokemonNotNull() {
+        Pokemon pokemon = Pokemon.builder()
+                .name("pikachu")
+                .type(PokemonType.ELECTRIC).build();
+
+        pokemonRepository.save(pokemon);
+
+        Pokemon existPokemon = pokemonRepository
+                .findByType(pokemon.getType())
+                .get();
+
+        assertThat(existPokemon).isNotNull();
+        assertThat(existPokemon.getType().name()).isEqualTo(PokemonType.ELECTRIC.name());
+        System.out.println("PokemonType.ELECTRIC.name() = " + PokemonType.ELECTRIC.name());
+    }
+
 }
