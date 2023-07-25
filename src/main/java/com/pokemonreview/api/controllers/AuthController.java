@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -44,11 +45,18 @@ public class AuthController {
                         loginDto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        //token 생성
         String token = jwtGenerator.generateToken(authentication);
+
         AuthResponseDto authResponseDTO = new AuthResponseDto(token);
         authResponseDTO.setUsername(loginDto.getUsername());
-        UserEntity userEntity = userRepository.findByUsername(loginDto.getUsername()).get();
-        authResponseDTO.setRole(userEntity.getRoles().get(0).getName());
+
+        Optional<UserEntity> optionalUser =
+                userRepository.findByUsername(loginDto.getUsername());
+        if(optionalUser.isPresent()){
+            UserEntity userEntity = optionalUser.get();
+            authResponseDTO.setRole(userEntity.getRoles().get(0).getName());
+        }
         return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
     }
 
