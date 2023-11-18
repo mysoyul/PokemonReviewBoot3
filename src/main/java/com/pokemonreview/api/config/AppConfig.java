@@ -16,7 +16,7 @@ public class AppConfig {
     @Bean
     public CommandLineRunner test(PokemonRepository pokemonRepository) {
         return args -> {
-            System.out.println(">>>> Pokemon Insert 시작");
+            System.out.println("**** Pokemon Insert 시작");
             pokemonRepository.deleteAll();
             List<Pokemon> pokemonList = IntStream.range(0, 10)
                     .mapToObj(i -> Pokemon.builder()
@@ -26,7 +26,7 @@ public class AppConfig {
                     .collect(Collectors.toList());
 
             pokemonRepository.saveAll(pokemonList);
-            System.out.println("<<<<< Pokemon Insert 끝");
+            System.out.println("**** Pokemon Insert 끝");
 
         };
     }
