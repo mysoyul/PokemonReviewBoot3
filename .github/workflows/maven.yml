@@ -47,13 +47,4 @@ jobs:
         username: ec2-user
         key: ${{ secrets.EC2_KEY }}
         script: |
-          docker run --name mysql-svc -d --net msanet --net-alias=mysql-svc \
-          -v /home/r/docker-volume/mariadb/conf.d:/etc/mysql/conf.d \
-          -v /home/r/docker-volume/mariadb/store:/var/lib/mysql \
-          -e MYSQL_ROOT_PASSWORD='maria' \
-          -e MYSQL_DATABASE='boot_db' \
-          -e MYSQL_USER='boot' \
-          -e MYSQL_PASSWORD='boot' \
-          -e MYSQL_ROOT_HOST='%' \
-          mariadb:10.4.16
           docker run --name myboot-svc -d -p 8080:8080 --net msanet --net-alias=myboot-svc ${{ secrets.DOCKER_USERNAME }}/springbootvuejs:boot_v2
