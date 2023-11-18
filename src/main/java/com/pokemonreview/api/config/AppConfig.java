@@ -26,7 +26,7 @@ public class AppConfig {
                     .collect(Collectors.toList());
 
             pokemonRepository.saveAll(pokemonList);
-            System.out.println(">>>> Pokemon Insert 끝");
+            System.out.println("<<<<< Pokemon Insert 끝");
 
         };
     }
