@@ -51,4 +51,4 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         script: |
           docker rm -f myboot-svc
-          docker run --name myboot-svc -d -p 8080:8080 --net msanet --net-alias=myboot-svc ${{ secrets.DOCKER_USERNAME }}/springbootvuejs:boot_v2
+          docker run --name myboot-svc -d -p 8080:8080 --net msanet --net-alias=myboot-svc ${{ secrets.DOCKER_USERNAME }}/springbootvuejs:v${{ env.RELEASE_VERSION }}
